@@ -24,24 +24,13 @@
 <h1>Manage Customers</h1>
 <table id="customers">
     <tr>
-        <th>id</th>
-        <th>fullName</th>
-        <th>email</th>
-        <th>phones</th>
-        <th>businessCustomer</th>
-        <th>userName</th>
-        <th>enabled</th>
-        <th>accounts</th>
-        <th>&nbsp;</th>
+        <th>Name</th>
+        <th>Business Customer</th>
+        <th>Accounts</th>
     </tr>
     <tr th:each="customer : ${customers}">
-        <td th:text="${customer.id}">5</td>
         <td><a href="#" th:href="@{/customers/}+${customer.id}" th:text="${customer.fullName}">Sample Name</a></td>
-        <td th:text="${customer.email}">sname@example.com</td>
-        <td th:text="${customer.phones}">[+12345 (home)]</td>
         <td th:text="${customer.businessCustomer}">false</td>
-        <td th:text="${customer.userName}">sname</td>
-        <td th:text="${customer.enabled}">true</td>
         <td th:text="${customer.accounts}">[#1001, #1002]</td>
     </tr>
 </table>
