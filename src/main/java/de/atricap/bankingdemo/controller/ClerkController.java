@@ -51,4 +51,19 @@ public class ClerkController {
 
         return "redirect:/customers/";
     }
+
+    @GetMapping("/{id}/edit")
+    public String showEditCustomer(@PathVariable int id, Model model) throws CustomerNotFoundException {
+        Customer customer = customerService.findById(id).orElseThrow(() -> new CustomerNotFoundException(id));
+        model.addAttribute("customer", customer);
+
+        return "customers/edit";
+    }
+
+    @PostMapping("/{id}/edit")
+    public String postEditCustomer(@PathVariable int id, @ModelAttribute("customer") Customer customer) throws CustomerNotFoundException {
+        customerService.update(customer);
+
+        return "redirect:/customers/";
+    }
 }

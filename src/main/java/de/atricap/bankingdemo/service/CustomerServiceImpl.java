@@ -1,9 +1,11 @@
 package de.atricap.bankingdemo.service;
 
+import de.atricap.bankingdemo.controller.CustomerNotFoundException;
 import de.atricap.bankingdemo.entity.Customer;
 import de.atricap.bankingdemo.repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -31,6 +33,19 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public Customer save(Customer customer) {
         return customerRepository.save(customer);
+    }
+
+    @Override
+    @Transactional
+    public void update(Customer customer) throws CustomerNotFoundException {
+        int id = customer.getId();
+        Customer currentCustomer = customerRepository.findById(id).orElseThrow(() -> new CustomerNotFoundException(id));
+
+        currentCustomer.setFullName(customer.getFullName());
+        currentCustomer.setEmail(customer.getEmail());
+        currentCustomer.setBusinessCustomer(customer.isBusinessCustomer());
+        currentCustomer.setUserName(customer.getUserName());
+        currentCustomer.setEnabled(customer.isEnabled());
     }
 
     @Override
