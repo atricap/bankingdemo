@@ -81,7 +81,7 @@ public class Customer {
     }
 
     public List<Phone> getPhones() {
-        return Collections.unmodifiableList(phones);
+        return Collections.unmodifiableList(phones != null ? phones : Collections.emptyList());
     }
 
     public void addPhone(Phone phone) {
@@ -92,7 +92,7 @@ public class Customer {
     }
 
     public List<Account> getAccounts() {
-        return Collections.unmodifiableList(accounts);
+        return Collections.unmodifiableList(accounts != null ? accounts : Collections.emptyList());
     }
 
     public void addAccount(Account account) {
