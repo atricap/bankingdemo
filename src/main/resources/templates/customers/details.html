@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Customer Details</title>
+    <style>
+        #customerDetails {
+          border-collapse: collapse;
+        }
+        #customerDetails td, #customerDetails th {
+          border: 1px solid #ddd;
+          padding: 5px;
+        }
+        #customerDetails tr:nth-child(even) {
+            background-color: #f0f0f0;
+        }
+        #customerDetails .col-heading {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+<p>
+    <a href="#" th:href="@{/}">Homepage</a> /
+    <a href="#" th:href="@{/customers/}">Customers</a> /
+    Details
+</p>
+<h1>Customer Details</h1>
+<table id="customerDetails">
+    <tr>
+        <td class="col-heading">Id</td>
+        <td th:text="${customer.id}">5</td>
+    </tr>
+    <tr>
+        <td class="col-heading">Name</td>
+        <td th:text="${customer.fullName}">Sample Name</td>
+    </tr>
+    <tr>
+        <td class="col-heading">Email</td>
+        <td th:text="${customer.email}">sname@example.com</td>
+    </tr>
+    <tr>
+        <td class="col-heading">Phones</td>
+        <td>
+            <ul th:each="phone : ${customer.phones}">
+                <li th:text="${phone}">+12345 (home)</li>
+            </ul>
+        </td>
+    </tr>
+    <tr>
+        <td class="col-heading">Business Customer</td>
+        <td><span th:text="${customer.businessCustomer}">false</span><br/></td>
+    </tr>
+    <tr>
+        <td class="col-heading">Username</td>
+        <td th:text="${customer.userName}">sname</td>
+    </tr>
+    <tr>
+        <td class="col-heading">Enabled</td>
+        <td th:text="${customer.enabled}">true</td>
+    </tr>
+    <tr>
+        <td class="col-heading">Accounts</td>
+        <td>
+            <ul th:each="account : ${customer.accounts}">
+                <li th:text="${account}">#1001</li>
+            </ul>
+        </td>
+    </tr>
+</table>
+<p>
+    <a href="#">Edit Customer</a><br/>
+    <a href="#">Delete Customer</a>
+</p>
+</body>
+</html>
