@@ -5,9 +5,7 @@ import de.atricap.bankingdemo.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -36,5 +34,21 @@ public class ClerkController {
         model.addAttribute("customer", customer);
 
         return "customers/details";
+    }
+
+    @GetMapping("/add")
+    public String showAddCustomer(Model model) {
+        Customer customer = new Customer();
+        model.addAttribute("customer", customer);
+
+        return "customers/add";
+    }
+
+    @PostMapping("/add")
+    public String postAddCustomer(@ModelAttribute("customer") Customer customer) {
+        customer.setEnabled(true);
+        customerService.save(customer);
+
+        return "redirect:/customers/";
     }
 }

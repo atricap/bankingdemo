@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>New Customer</title>
+    <style>
+        #customerDetails {
+          border-collapse: collapse;
+        }
+        #customerDetails td, #customerDetails th {
+          border: 1px solid #ddd;
+          padding: 5px;
+        }
+        #customerDetails tr:nth-child(even) {
+            background-color: #f0f0f0;
+        }
+        #customerDetails .col-heading {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+<p>
+    <a href="#" th:href="@{/}">Homepage</a> /
+    <a href="#" th:href="@{/customers/}">Customers</a> /
+    New Customer
+</p>
+<h1>New Customer</h1>
+<form action="#" th:action="@{/customers/add}" method="POST" th:object="${customer}">
+    <table id="customerDetails">
+        <tr>
+            <td class="col-heading">Name</td>
+            <td><input type="text" th:field="*{fullName}"></td>
+        </tr>
+        <tr>
+            <td class="col-heading">Email</td>
+            <td><input type="text" th:field="*{email}"></td>
+        </tr>
+        <tr>
+            <td class="col-heading">Business Customer</td>
+            <td><input type="checkbox" th:field="*{businessCustomer}"></td>
+        </tr>
+        <tr>
+            <td class="col-heading">Username</td>
+            <td><input type="text" th:field="*{userName}"></td>
+        </tr>
+        <tr>
+            <td class="col-heading">Password</td>
+            <td><input type="password" th:field="*{password}"></td>
+        </tr>
+    </table>
+    <p>
+        <input type="submit" value="Create">
+    </p>
+</form>
+</body>
+</html>
