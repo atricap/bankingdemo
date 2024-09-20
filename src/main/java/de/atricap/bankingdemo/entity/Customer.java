@@ -26,7 +26,7 @@ public class Customer {
     private String email;
 
     @OneToMany(fetch = EAGER, cascade = ALL, orphanRemoval = true)
-    @JoinColumn(name = "customer_id")
+    @JoinColumn(name = "customer_id", nullable = false)
     private List<Phone> phones;
 
     @OneToMany(fetch = LAZY, cascade = ALL, orphanRemoval = true, mappedBy = "customer")

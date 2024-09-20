@@ -1,6 +1,7 @@
 package de.atricap.bankingdemo.controller;
 
 import de.atricap.bankingdemo.entity.Customer;
+import de.atricap.bankingdemo.entity.Phone;
 import de.atricap.bankingdemo.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -65,5 +66,23 @@ public class ClerkController {
         customerService.update(customer);
 
         return "redirect:/customers/";
+    }
+
+
+    @GetMapping("/{id}/phones/add")
+    public String showAddPhone(@PathVariable int id, Model model) throws CustomerNotFoundException {
+        Customer customer = customerService.findById(id).orElseThrow(() -> new CustomerNotFoundException(id));
+        model.addAttribute("customer", customer);
+        Phone phone = new Phone();
+        model.addAttribute("phone", phone);
+
+        return "customers/phones/add";
+    }
+
+    @PostMapping("/{id}/phones/add")
+    public String postAddPhone(@PathVariable int id, @ModelAttribute("phone") Phone phone) throws CustomerNotFoundException {
+        customerService.addPhoneForCustomerById(id, phone);
+
+        return "redirect:/customers/%d/edit".formatted(id);
     }
 }

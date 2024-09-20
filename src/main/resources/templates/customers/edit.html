@@ -38,6 +38,15 @@
             <td><input type="text" th:field="*{email}"></td>
         </tr>
         <tr>
+            <td class="col-heading">Phones</td>
+            <td>
+                <ul th:each="phone : *{phones}">
+                    <li th:text="${phone}">+12345 (home)</li>
+                </ul>
+                <a href="#" th:href="|@{/customers/}${customer.id}/phones/add|">Add</a>
+            </td>
+        </tr>
+        <tr>
             <td class="col-heading">Business Customer</td>
             <td><input type="checkbox" th:field="*{businessCustomer}"></td>
         </tr>

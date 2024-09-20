@@ -2,6 +2,7 @@ package de.atricap.bankingdemo.service;
 
 import de.atricap.bankingdemo.controller.CustomerNotFoundException;
 import de.atricap.bankingdemo.entity.Customer;
+import de.atricap.bankingdemo.entity.Phone;
 import de.atricap.bankingdemo.repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -51,5 +52,12 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public void deleteById(int id) {
         customerRepository.deleteById(id);
+    }
+
+    @Override
+    @Transactional
+    public void addPhoneForCustomerById(int id, Phone phone) throws CustomerNotFoundException {
+        Customer customer = customerRepository.findById(id).orElseThrow(() -> new CustomerNotFoundException(id));
+        customer.addPhone(phone);
     }
 }
