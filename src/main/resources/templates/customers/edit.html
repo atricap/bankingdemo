@@ -26,7 +26,7 @@
     Edit Customer
 </p>
 <h1>Edit Customer</h1>
-<form action="#" th:action="@{/customers/}+${customer.id}+'/edit'" method="POST" th:object="${customer}">
+<form action="#" th:action="|@{/customers/}${customer.id}/edit|" method="POST" th:object="${customer}">
     <input type="hidden" th:field="*{id}">
     <table id="customerDetails">
         <tr>

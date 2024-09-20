@@ -29,7 +29,7 @@
         <th>Accounts</th>
     </tr>
     <tr th:each="customer : ${customers}">
-        <td><a href="#" th:href="@{/customers/}+${customer.id}" th:text="${customer.fullName}">Sample Name</a></td>
+        <td><a href="#" th:href="|@{/customers/}${customer.id}|" th:text="${customer.fullName}">Sample Name</a></td>
         <td th:text="${customer.businessCustomer}">false</td>
         <td th:text="${customer.accounts}">[#1001, #1002]</td>
     </tr>
