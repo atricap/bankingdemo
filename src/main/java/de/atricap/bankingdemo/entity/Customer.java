@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 import static jakarta.persistence.CascadeType.*;
 import static jakarta.persistence.FetchType.*;
@@ -84,11 +85,27 @@ public class Customer {
         return Collections.unmodifiableList(phones != null ? phones : Collections.emptyList());
     }
 
+    public Optional<Phone> findPhone(int phoneNumber) {
+        if (phones == null) {
+            return Optional.empty();
+        }
+        return phones.stream()
+                .filter(p -> p.getNumber() == phoneNumber)
+                .findAny();
+    }
+
     public void addPhone(Phone phone) {
         if (phones == null) {
             phones = new ArrayList<>();
         }
         phones.add(phone);
+    }
+
+    public boolean removePhone(Phone phone) {
+        if (phones == null) {
+            return false;
+        }
+        return phones.removeIf(p -> p == phone);
     }
 
     public List<Account> getAccounts() {

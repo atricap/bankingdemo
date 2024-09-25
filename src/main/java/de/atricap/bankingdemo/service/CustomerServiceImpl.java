@@ -1,6 +1,7 @@
 package de.atricap.bankingdemo.service;
 
 import de.atricap.bankingdemo.controller.CustomerNotFoundException;
+import de.atricap.bankingdemo.controller.PhoneNotFoundException;
 import de.atricap.bankingdemo.entity.Customer;
 import de.atricap.bankingdemo.entity.Phone;
 import de.atricap.bankingdemo.repository.CustomerRepository;
@@ -59,5 +60,13 @@ public class CustomerServiceImpl implements CustomerService {
     public void addPhoneForCustomerById(int id, Phone phone) throws CustomerNotFoundException {
         Customer customer = customerRepository.findById(id).orElseThrow(() -> new CustomerNotFoundException(id));
         customer.addPhone(phone);
+    }
+
+    @Override
+    @Transactional
+    public void deletePhoneForCustomerById(int customerId, int phoneId) throws CustomerNotFoundException, PhoneNotFoundException {
+        Customer customer = customerRepository.findById(customerId).orElseThrow(() -> new CustomerNotFoundException(customerId));
+        Phone phone = customer.findPhone(phoneId).orElseThrow(() -> new PhoneNotFoundException(customerId, phoneId));
+        customer.removePhone(phone);
     }
 }

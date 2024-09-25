@@ -38,15 +38,6 @@
             <td><input type="text" th:field="*{email}"></td>
         </tr>
         <tr>
-            <td class="col-heading">Phones</td>
-            <td>
-                <ul th:each="phone : *{phones}">
-                    <li th:text="${phone}">+12345 (home)</li>
-                </ul>
-                <a href="#" th:href="|@{/customers/}${customer.id}/phones/add|">Add</a>
-            </td>
-        </tr>
-        <tr>
             <td class="col-heading">Business Customer</td>
             <td><input type="checkbox" th:field="*{businessCustomer}"></td>
         </tr>
@@ -63,5 +54,17 @@
         <input type="submit" value="Apply">
     </p>
 </form>
+<h2>Phones</h2>
+<p>
+<ul th:each="phone : ${customer.phones}">
+    <li>
+        <span th:text="${phone}">+12345 (home)</span>
+        <form action="#" th:action="|@{/customers/}${customer.id}/phones/${phone.number}/delete|" method="POST">
+            <input type="submit" value="Remove">
+        </form>
+    </li>
+</ul>
+<a href="#" th:href="|@{/customers/}${customer.id}/phones/add|">Add</a>
+</p>
 </body>
 </html>

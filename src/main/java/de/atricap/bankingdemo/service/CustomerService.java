@@ -1,6 +1,7 @@
 package de.atricap.bankingdemo.service;
 
 import de.atricap.bankingdemo.controller.CustomerNotFoundException;
+import de.atricap.bankingdemo.controller.PhoneNotFoundException;
 import de.atricap.bankingdemo.entity.Customer;
 import de.atricap.bankingdemo.entity.Phone;
 
@@ -20,4 +21,6 @@ public interface CustomerService {
     void deleteById(int id);
 
     void addPhoneForCustomerById(int id, Phone phone) throws CustomerNotFoundException;
+
+    void deletePhoneForCustomerById(int customerId, int phoneId) throws CustomerNotFoundException, PhoneNotFoundException;
 }
