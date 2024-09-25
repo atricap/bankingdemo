@@ -64,9 +64,9 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     @Transactional
-    public void deletePhoneForCustomerById(int customerId, int phoneId) throws CustomerNotFoundException, PhoneNotFoundException {
+    public void deletePhoneForCustomerById(int customerId, long phoneNumber) throws CustomerNotFoundException, PhoneNotFoundException {
         Customer customer = customerRepository.findById(customerId).orElseThrow(() -> new CustomerNotFoundException(customerId));
-        Phone phone = customer.findPhone(phoneId).orElseThrow(() -> new PhoneNotFoundException(customerId, phoneId));
+        Phone phone = customer.findPhone(phoneNumber).orElseThrow(() -> new PhoneNotFoundException(customerId, phoneNumber));
         customer.removePhone(phone);
     }
 }

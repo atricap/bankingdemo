@@ -100,9 +100,9 @@ public class ClerkController {
         return "redirect:/customers/%d/edit".formatted(id);
     }
 
-    @PostMapping("/{customerId}/phones/{phoneId}/delete")
-    public String postDeletePhone(@PathVariable int customerId, @PathVariable int phoneId) throws CustomerNotFoundException, PhoneNotFoundException {
-        customerService.deletePhoneForCustomerById(customerId, phoneId);
+    @PostMapping("/{customerId}/phones/{phoneNumber}/delete")
+    public String postDeletePhone(@PathVariable int customerId, @PathVariable long phoneNumber) throws CustomerNotFoundException, PhoneNotFoundException {
+        customerService.deletePhoneForCustomerById(customerId, phoneNumber);
 
         return "redirect:/customers/%d/edit".formatted(customerId);
     }

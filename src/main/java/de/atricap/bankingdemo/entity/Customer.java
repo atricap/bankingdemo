@@ -85,7 +85,7 @@ public class Customer {
         return Collections.unmodifiableList(phones != null ? phones : Collections.emptyList());
     }
 
-    public Optional<Phone> findPhone(int phoneNumber) {
+    public Optional<Phone> findPhone(long phoneNumber) {
         if (phones == null) {
             return Optional.empty();
         }

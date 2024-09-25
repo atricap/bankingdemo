@@ -22,5 +22,5 @@ public interface CustomerService {
 
     void addPhoneForCustomerById(int id, Phone phone) throws CustomerNotFoundException;
 
-    void deletePhoneForCustomerById(int customerId, int phoneId) throws CustomerNotFoundException, PhoneNotFoundException;
+    void deletePhoneForCustomerById(int customerId, long phoneNumber) throws CustomerNotFoundException, PhoneNotFoundException;
 }
