@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Delete Customer</title>
+    <style>
+        #customerDetails {
+          border-collapse: collapse;
+        }
+        #customerDetails td, #customerDetails th {
+          border: 1px solid #ddd;
+          padding: 5px;
+        }
+        #customerDetails tr:nth-child(even) {
+            background-color: #f0f0f0;
+        }
+        #customerDetails .col-heading {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+<p>
+    <a href="#" th:href="@{/}">Homepage</a> /
+    <a href="#" th:href="@{/customers/}">Customers</a> /
+    Delete Customer
+</p>
+<h1>Delete Customer "<span th:text="${customer.fullName}">Sample Name</span>"</h1>
+<p>
+    Are you sure you want to delete customer "<span th:text="${customer.fullName}">Sample Name</span>"?
+</p>
+<form action="#" th:action="|@{/customers/}${customer.id}/delete|" method="POST">
+    <p>
+        <input type="submit" value="Delete">
+        <a href="#" th:href="@{/customers/}">Cancel</a>
+    </p>
+</form>
+</body>
+</html>

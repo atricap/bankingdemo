@@ -68,6 +68,20 @@ public class ClerkController {
         return "redirect:/customers/";
     }
 
+    @GetMapping("/{id}/delete")
+    public String showDeleteCustomer(@PathVariable int id, Model model) throws CustomerNotFoundException {
+        Customer customer = customerService.findById(id).orElseThrow(() -> new CustomerNotFoundException(id));
+        model.addAttribute("customer", customer);
+
+        return "customers/delete";
+    }
+
+    @PostMapping("/{id}/delete")
+    public String postDeleteCustomer(@PathVariable int id) {
+        customerService.deleteById(id);
+
+        return "redirect:/customers/";
+    }
 
     @GetMapping("/{id}/phones/add")
     public String showAddPhone(@PathVariable int id, Model model) throws CustomerNotFoundException {
