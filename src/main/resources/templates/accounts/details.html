@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Account Details</title>
+</head>
+<body>
+<p>
+    <a href="#" th:href="@{/}">Homepage</a> /
+    Account
+</p>
+<h1>Account <span th:text="${account.number}">#1001</span></h1>
+<p>
+    Balance: <strong th:text="${account.balance}">120.13</strong>
+</p>
+</body>
+</html>

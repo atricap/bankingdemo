@@ -112,11 +112,27 @@ public class Customer {
         return Collections.unmodifiableList(accounts != null ? accounts : Collections.emptyList());
     }
 
+    public Optional<Account> findAccount(int accountNumber) {
+        if (accounts == null) {
+            return Optional.empty();
+        }
+        return accounts.stream()
+                .filter(a -> a.getNumber() == accountNumber)
+                .findAny();
+    }
+
     public void addAccount(Account account) {
         if (accounts == null) {
             accounts = new ArrayList<>();
         }
         accounts.add(account);
+    }
+
+    public boolean removeAccount(Account account) {
+        if (accounts == null) {
+            return false;
+        }
+        return accounts.removeIf(a -> a == account);
     }
 
     public boolean isBusinessCustomer() {
