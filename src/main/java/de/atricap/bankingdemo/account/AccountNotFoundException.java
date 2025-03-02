@@ -1,4 +1,4 @@
-package de.atricap.bankingdemo.controller;
+package de.atricap.bankingdemo.account;
 
 public class AccountNotFoundException extends Exception {
     public AccountNotFoundException(int customerId, int accountNumber) {

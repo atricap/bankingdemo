@@ -1,4 +1,4 @@
-package de.atricap.bankingdemo.controller;
+package de.atricap.bankingdemo.customer;
 
 public class PhoneNotFoundException extends Exception {
     public PhoneNotFoundException(int customerId, long phoneNumber) {

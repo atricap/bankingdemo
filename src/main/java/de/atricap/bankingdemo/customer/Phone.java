@@ -1,4 +1,4 @@
-package de.atricap.bankingdemo.entity;
+package de.atricap.bankingdemo.customer;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

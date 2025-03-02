@@ -1,8 +1,5 @@
-package de.atricap.bankingdemo.controller;
+package de.atricap.bankingdemo.customer;
 
-import de.atricap.bankingdemo.entity.Customer;
-import de.atricap.bankingdemo.entity.Phone;
-import de.atricap.bankingdemo.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

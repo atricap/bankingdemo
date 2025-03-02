@@ -1,4 +1,4 @@
-package de.atricap.bankingdemo.controller;
+package de.atricap.bankingdemo.customer;
 
 public class CustomerNotFoundException extends Exception {
     public CustomerNotFoundException(int id) {

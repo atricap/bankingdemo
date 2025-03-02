@@ -1,9 +1,4 @@
-package de.atricap.bankingdemo.service;
-
-import de.atricap.bankingdemo.controller.CustomerNotFoundException;
-import de.atricap.bankingdemo.controller.PhoneNotFoundException;
-import de.atricap.bankingdemo.entity.Customer;
-import de.atricap.bankingdemo.entity.Phone;
+package de.atricap.bankingdemo.customer;
 
 import java.util.List;
 import java.util.Optional;

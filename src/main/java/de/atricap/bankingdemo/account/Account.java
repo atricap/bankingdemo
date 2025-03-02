@@ -1,5 +1,6 @@
-package de.atricap.bankingdemo.entity;
+package de.atricap.bankingdemo.account;
 
+import de.atricap.bankingdemo.customer.Customer;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;

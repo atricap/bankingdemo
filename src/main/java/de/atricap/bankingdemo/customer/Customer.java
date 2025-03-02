@@ -1,5 +1,6 @@
-package de.atricap.bankingdemo.entity;
+package de.atricap.bankingdemo.customer;
 
+import de.atricap.bankingdemo.account.Account;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
