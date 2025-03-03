@@ -1,9 +1,12 @@
 package de.atricap.bankingdemo.customer;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.Clock;
 import java.util.List;
 import java.util.Optional;
 
@@ -11,10 +14,18 @@ import java.util.Optional;
 public class CustomerServiceImpl implements CustomerService {
 
     private CustomerRepository customerRepository;
+    private Clock clock;
+    private ApplicationEventPublisher applicationEventPublisher;
 
     @Autowired
-    public CustomerServiceImpl(CustomerRepository customerRepository) {
+    public CustomerServiceImpl(
+            CustomerRepository customerRepository,
+            Clock clock,
+            ApplicationEventPublisher applicationEventPublisher
+    ) {
         this.customerRepository = customerRepository;
+        this.clock = clock;
+        this.applicationEventPublisher = applicationEventPublisher;
     }
 
     @Override
@@ -28,8 +39,14 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public Customer save(Customer customer) {
-        return customerRepository.save(customer);
+    public void register(Customer customer) {
+        applicationEventPublisher.publishEvent(
+                new CustomerRegisteredEvent(this, clock, customer));
+    }
+
+    @EventListener
+    void handleCustomerRegisteredEvent(CustomerRegisteredEvent event) {
+        customerRepository.save(event.getCustomer());
     }
 
     @Override

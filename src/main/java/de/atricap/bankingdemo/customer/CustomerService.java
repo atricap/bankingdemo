@@ -9,7 +9,7 @@ public interface CustomerService {
 
     Optional<Customer> findById(int id);
 
-    Customer save(Customer customer);
+    void register(Customer customer);
 
     void update(Customer customer) throws CustomerNotFoundException;
 

@@ -45,7 +45,7 @@ public class ClerkController {
     @PostMapping("/add")
     public String postAddCustomer(@ModelAttribute("customer") Customer customer) {
         customer.setEnabled(true);
-        customerService.save(customer);
+        customerService.register(customer);
 
         return "redirect:/customers/";
     }
