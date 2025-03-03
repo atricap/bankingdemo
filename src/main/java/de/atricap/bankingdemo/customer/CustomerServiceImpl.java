@@ -49,11 +49,34 @@ public class CustomerServiceImpl implements CustomerService {
         customerRepository.save(event.getCustomer());
     }
 
+    /**
+     * Customer must contain all phones to store.
+     * @param customer
+     * @throws CustomerNotFoundException
+     */
     @Override
     @Transactional
     public void update(Customer customer) throws CustomerNotFoundException {
         int id = customer.getId();
         Customer currentCustomer = customerRepository.findById(id).orElseThrow(() -> new CustomerNotFoundException(id));
+
+        applicationEventPublisher.publishEvent(
+                new CustomerUpdatedEvent(this, clock, customer));
+    }
+
+    /**
+     * Customer need not contain any Phones, as the current stored Phones will be retained.
+     * @param customer
+     * @throws CustomerNotFoundException
+     */
+    @Override
+    @Transactional
+    public void updateKeepPhones(Customer customer) throws CustomerNotFoundException {
+        int id = customer.getId();
+        Customer currentCustomer = customerRepository.findById(id).orElseThrow(() -> new CustomerNotFoundException(id));
+        // fill in phones, so they are not changed
+        customer.addAllPhones(currentCustomer.getPhones());
+
         applicationEventPublisher.publishEvent(
                 new CustomerUpdatedEvent(this, clock, customer));
     }
@@ -69,6 +92,7 @@ public class CustomerServiceImpl implements CustomerService {
         currentCustomer.setBusinessCustomer(customer.isBusinessCustomer());
         currentCustomer.setUserName(customer.getUserName());
         currentCustomer.setEnabled(customer.isEnabled());
+        currentCustomer.replacePhones(customer.getPhones());
     }
 
     @Override
@@ -89,6 +113,9 @@ public class CustomerServiceImpl implements CustomerService {
     public void addPhoneForCustomerById(int id, Phone phone) throws CustomerNotFoundException {
         Customer customer = customerRepository.findById(id).orElseThrow(() -> new CustomerNotFoundException(id));
         customer.addPhone(phone);
+
+        applicationEventPublisher.publishEvent(
+                new CustomerUpdatedEvent(this, clock, customer));
     }
 
     @Override
@@ -97,5 +124,8 @@ public class CustomerServiceImpl implements CustomerService {
         Customer customer = customerRepository.findById(customerId).orElseThrow(() -> new CustomerNotFoundException(customerId));
         Phone phone = customer.findPhone(phoneNumber).orElseThrow(() -> new PhoneNotFoundException(customerId, phoneNumber));
         customer.removePhone(phone);
+
+        applicationEventPublisher.publishEvent(
+                new CustomerUpdatedEvent(this, clock, customer));
     }
 }

@@ -3,10 +3,7 @@ package de.atricap.bankingdemo.customer;
 import de.atricap.bankingdemo.account.Account;
 import jakarta.persistence.*;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 import static jakarta.persistence.CascadeType.*;
 import static jakarta.persistence.FetchType.*;
@@ -83,7 +80,24 @@ public class Customer {
     }
 
     public List<Phone> getPhones() {
-        return Collections.unmodifiableList(phones != null ? phones : Collections.emptyList());
+        return new ArrayList<>(phones != null ? phones : Collections.emptyList());
+    }
+
+    public void addAllPhones(Collection<Phone> newPhones) {
+        for (Phone phone : newPhones) {
+            addPhone(phone);
+        }
+    }
+
+    public void replacePhones(Collection<Phone> newPhones) {
+        clearPhones();
+        addAllPhones(newPhones);
+    }
+
+    public void clearPhones() {
+        if (phones == null)
+            return;
+        phones.clear();
     }
 
     public Optional<Phone> findPhone(long phoneNumber) {

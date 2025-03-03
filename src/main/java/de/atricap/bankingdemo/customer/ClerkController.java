@@ -60,7 +60,7 @@ public class ClerkController {
 
     @PostMapping("/{id}/edit")
     public String postEditCustomer(@PathVariable int id, @ModelAttribute("customer") Customer customer) throws CustomerNotFoundException {
-        customerService.update(customer);
+        customerService.updateKeepPhones(customer);
 
         return "redirect:/customers/";
     }
