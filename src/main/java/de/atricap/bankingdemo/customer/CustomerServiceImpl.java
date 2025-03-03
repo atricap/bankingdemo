@@ -54,6 +54,15 @@ public class CustomerServiceImpl implements CustomerService {
     public void update(Customer customer) throws CustomerNotFoundException {
         int id = customer.getId();
         Customer currentCustomer = customerRepository.findById(id).orElseThrow(() -> new CustomerNotFoundException(id));
+        applicationEventPublisher.publishEvent(
+                new CustomerUpdatedEvent(this, clock, customer));
+    }
+
+    @EventListener
+    void handleCustomerUpdatedEvent(CustomerUpdatedEvent event) throws CustomerNotFoundException {
+        Customer customer = event.getCustomer();
+        int id = customer.getId();
+        Customer currentCustomer = customerRepository.findById(id).orElseThrow(() -> new CustomerNotFoundException(id));
 
         currentCustomer.setFullName(customer.getFullName());
         currentCustomer.setEmail(customer.getEmail());
