@@ -74,8 +74,8 @@ public class ClerkController {
     }
 
     @PostMapping("/{id}/delete")
-    public String postDeleteCustomer(@PathVariable int id) {
-        customerService.deleteById(id);
+    public String postDeleteCustomer(@PathVariable int id) throws CustomerNotFoundException {
+        customerService.removeById(id);
 
         return "redirect:/customers/";
     }

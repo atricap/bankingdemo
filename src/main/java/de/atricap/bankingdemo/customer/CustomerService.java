@@ -13,7 +13,7 @@ public interface CustomerService {
 
     void update(Customer customer) throws CustomerNotFoundException;
 
-    void deleteById(int id);
+    void removeById(int id) throws CustomerNotFoundException;
 
     void addPhoneForCustomerById(int id, Phone phone) throws CustomerNotFoundException;
 

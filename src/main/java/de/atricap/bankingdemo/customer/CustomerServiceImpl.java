@@ -72,8 +72,16 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public void deleteById(int id) {
-        customerRepository.deleteById(id);
+    public void removeById(int id) throws CustomerNotFoundException {
+        Customer currentCustomer = customerRepository.findById(id).orElseThrow(() -> new CustomerNotFoundException(id));
+
+        applicationEventPublisher.publishEvent(
+                new CustomerRemovedEvent(this, clock, currentCustomer.getId()));
+    }
+
+    @EventListener
+    void handleCustomerRemovedEvent(CustomerRemovedEvent event) {
+        customerRepository.deleteById(event.getId());
     }
 
     @Override
