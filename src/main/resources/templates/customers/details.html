@@ -63,8 +63,14 @@
         <td class="col-heading">Accounts</td>
         <td>
             <ul th:each="account : ${customer.accounts}">
-                <li th:text="${account}">#1001</li>
+                <li>
+                    <span th:text="${account}">#1001</span>
+                    <form action="#" th:action="|@{/customers/}${customer.id}/accounts/${account.number}/close|" method="POST">
+                        <input type="submit" value="Close">
+                    </form>
+                </li>
             </ul>
+            <a href="#" th:href="|@{/customers/}${customer.id}/accounts/open|">Open</a>
         </td>
     </tr>
 </table>

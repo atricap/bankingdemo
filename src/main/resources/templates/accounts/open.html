@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Open Account for Customer</title>
+    <style>
+        #customerDetails {
+          border-collapse: collapse;
+        }
+        #customerDetails td, #customerDetails th {
+          border: 1px solid #ddd;
+          padding: 5px;
+        }
+        #customerDetails tr:nth-child(even) {
+            background-color: #f0f0f0;
+        }
+        #customerDetails .col-heading {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+<p>
+    <a href="#" th:href="@{/}">Homepage</a> /
+    <a href="#" th:href="@{/customers/}">Customers</a> /
+    <a href="#" th:href="|@{/customers/}${customer.id}|" th:text="${customer.fullName}">Sample Name</a> /
+    Open Account
+</p>
+<h1>Open Account for <span th:text="${customer.fullName}">Sample Name</span></h1>
+<form action="#" th:action="|@{/customers/}${customer.id}/accounts/open|" method="POST" th:object="${account}">
+    <table id="customerDetails">
+        <tr>
+            <td class="col-heading">Account Type</td>
+            <td>
+                <select disabled>
+                    <option value="giro">Giro Account</option>
+                </select>
+            </td>
+        </tr>
+    </table>
+    <p>
+        <input type="submit" value="Open">
+    </p>
+</form>
+</body>
+</html>

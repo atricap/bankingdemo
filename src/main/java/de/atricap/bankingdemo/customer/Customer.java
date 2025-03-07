@@ -124,7 +124,7 @@ public class Customer {
     }
 
     public List<Account> getAccounts() {
-        return Collections.unmodifiableList(accounts != null ? accounts : Collections.emptyList());
+        return new ArrayList<>(accounts != null ? accounts : Collections.emptyList());
     }
 
     public Optional<Account> findAccount(int accountNumber) {
@@ -140,6 +140,7 @@ public class Customer {
         if (accounts == null) {
             accounts = new ArrayList<>();
         }
+        account.setCustomer(this);
         accounts.add(account);
     }
 
@@ -147,7 +148,11 @@ public class Customer {
         if (accounts == null) {
             return false;
         }
-        return accounts.removeIf(a -> a == account);
+        boolean removed = accounts.removeIf(a -> a == account);
+        if (removed) {
+            account.setCustomer(null);
+        }
+        return removed;
     }
 
     public boolean isBusinessCustomer() {
